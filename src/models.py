@@ -12,7 +12,9 @@ class Merchant(db.Model):
 
     id = db.Column(db.String, primary_key=True, default=generate_uuid)
     photo_url = db.Column(db.String, nullable=False)
-    name = db.Column(db.String, nullable=False, unique=True)
+    name = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
     adresses = db.relationship('Address')
     openinghours = db.relationship('OpenHour')

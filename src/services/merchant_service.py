@@ -1,4 +1,5 @@
 from models import db, Merchant
+from werkzeug.security import generate_password_hash
 
 class MerchantService:
     def create_merchant(self, data):
@@ -7,7 +8,14 @@ class MerchantService:
         if merchant_exists:
             raise Exception('Merchant already exists!')
         else:
-            merchant = Merchant(photo_url=data['photo_url'], name=data['name'])
+            hashedPassword = generate_password_hash(data['password'])
+            
+            merchant = Merchant(
+                photo_url=data['photo_url'], 
+                name=data['name'],
+                email=data['email'], 
+                password=hashedPassword
+            )
 
             db.session.add(merchant)
             db.session.commit()
@@ -15,7 +23,8 @@ class MerchantService:
             result = {
                 'id': merchant.id,
                 'photo_url': merchant.photo_url,
-                'name': merchant.name
+                'name': merchant.name,
+                'email': merchant.email,
             }
 
             return result
