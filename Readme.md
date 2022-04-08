@@ -3,10 +3,32 @@
 ## API Reference
 
 ### Merchants
+__POST ACCESS TOKEN__
+```json
+{
+    "email": "mcburguer@test.com",
+	"password": "1234"
+}
+```
+__Response 200__
+```json
+{
+  	"access_token": "eyJ0eXAiOiJKV1asdnjkjkGGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0OTQzNzgyMSwianRpIjoiZWFhZDJjNzktMjRiNy00MDc2LWE2YzgtMzA5MzllMGJiMjJkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImU0NTNlMjk4LWEzMDEtNDViOC1iMTU0LTRhNDhjOTJhZGI2OSIsIm5iZiI6MTY0OTQzNzgyMSwiZXhwIjoxNjQ5jEreA1q0XkChMeAGg"
+}
+```
+__Response 401__
+```json
+{
+    "error": "Password don't match!",
+}
+```
+
 __POST CREATE MERCHANT__
 ```json
 {
-    "name": "Mc Burguer"
+    "name": "Mc Burguer",
+    "email": "mcburguer@test.com",
+	"password": "1234"
 }
 ```
 __Response 201__
@@ -15,6 +37,7 @@ __Response 201__
     "id": "31fcclo9880-09eee2-de99001ccce40",
     "photo_url": "https://",
     "name": "Mc Burguer",
+    "email": "mcburguer@test.com",
 }
 ```
 __Response 400__

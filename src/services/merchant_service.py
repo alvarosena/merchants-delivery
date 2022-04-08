@@ -1,5 +1,6 @@
 from models import db, Merchant
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token
 
 class MerchantService:
     def create_merchant(self, data):
@@ -8,13 +9,13 @@ class MerchantService:
         if merchant_exists:
             raise Exception('Merchant already exists!')
         else:
-            hashedPassword = generate_password_hash(data['password'])
+            hashed_password = generate_password_hash(data['password'])
             
             merchant = Merchant(
                 photo_url=data['photo_url'], 
                 name=data['name'],
                 email=data['email'], 
-                password=hashedPassword
+                password=hashed_password
             )
 
             db.session.add(merchant)
@@ -25,6 +26,22 @@ class MerchantService:
                 'photo_url': merchant.photo_url,
                 'name': merchant.name,
                 'email': merchant.email,
+            }
+
+            return result
+
+    def authenticate_merchant(self, data):
+        merchant = Merchant.query.filter_by(email=data['email']).first()
+
+        password_match = check_password_hash(merchant.password, data['password'])
+
+        if not password_match:
+            raise Exception("Password don't match!")
+        else:
+            access_token = create_access_token(identity=merchant.id)
+
+            result = {
+                'access_token': access_token
             }
 
             return result
