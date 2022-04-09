@@ -38,6 +38,7 @@ __Response 201__
     "photo_url": "https://",
     "name": "Mc Burguer",
     "email": "mcburguer@test.com",
+    "created_at": "2022-01-01"
 }
 ```
 __Response 400__

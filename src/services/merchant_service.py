@@ -26,6 +26,7 @@ class MerchantService:
                 'photo_url': merchant.photo_url,
                 'name': merchant.name,
                 'email': merchant.email,
+                'created_at': merchant.created_at
             }
 
             return result
