@@ -3,6 +3,7 @@
 ## API Reference
 
 ### Merchants
+__api/v1/merchants__ <br>
 __POST ACCESS TOKEN__
 ```json
 {
@@ -38,10 +39,10 @@ __Response 201__
     "photo_url": "https://",
     "name": "Mc Burguer",
     "email": "mcburguer@test.com",
-    "created_at": "2022-01-01"
+    "created_at": "Sat, 09 Apr 2022 16:37:08 GMT"
 }
 ```
-__Response 400__
+__Response 400 NOT FOUND__
 ```json
 {
     "error": "Merchant already exists",
@@ -50,7 +51,7 @@ __Response 400__
 
 __GET LIST ALL MERCHANTS__
 
-__Response 200__
+__Response 200 OK__
 ```json
 {  
     [
@@ -60,6 +61,7 @@ __Response 200__
 ```
 
 ### Address
+__api/v1/address__ <br>
 __POST CREATE ADDRESS__
 Protected endpoint
 ```json
@@ -68,7 +70,7 @@ Protected endpoint
 	"state": "SP"
 }
 ```
-__Response 200__
+__Response 200 OK__
 ```json
 {
     "id": "76EEdc37-9787-437a-bjkad-4bads6d9633",
@@ -78,9 +80,34 @@ __Response 200__
     "created_at": "Sat, 09 Apr 2022 16:37:08 GMT"
 }
 ```
-__Response 404__
+__Response 404 NOT FOUND__
 ```json
 {
     "error": "Merchant not found."
+}
+```
+
+### Categories
+__/api/v1/categories__ <br>
+__CREATE CATEGORY__
+Protected endpoint
+```json
+{
+	"name": "Pizzas",
+}
+```
+__Response 200 OK__
+```json
+{
+    "id": "e4adsasjmae298-a301-45b8-b154-4a48c92adb69",
+	"name": "Pizzas",
+	"merchant_id": "e453e298-a301-45b8-b154-4a48c92adb69",
+    "created_at": "Sat, 09 Apr 2022 16:37:08 GMT"
+}
+```
+__Response 400 BAD REQUEST__
+```json
+{
+    "error": "Category already exists",
 }
 ```

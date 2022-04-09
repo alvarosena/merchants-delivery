@@ -20,6 +20,7 @@ class Merchant(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
     adresses = db.relationship('Address')
     openinghours = db.relationship('OpenHour')
+    categories = db.relationship('Category')
 
 class MerchantSchema(ma.Schema):
     class Meta:
@@ -39,7 +40,7 @@ class Address(db.Model):
 
 class AddressSchema(ma.Schema):
     class Meta:
-        fields = ("id", "photo_url", "name", "email", "created_at")
+        fields = ("id", "street", "state", "merchant_id", "created_at")
 
 address_schema = AddressSchema()
 adresses_schema = AddressSchema(many=True)
@@ -53,3 +54,33 @@ class OpenHour(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
     merchant_id = db.Column(db.String, db.ForeignKey('merchants.id'))
 
+class Category(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.String, primary_key=True, default=generate_uuid)
+    name = db.Column(db.String)
+    merchant_id = db.Column(db.String, db.ForeignKey('merchants.id'))
+    items = db.relationship('Item')
+
+class CategorySchema(ma.Schema):
+    class Meta:
+        fields = ("id", "name", "merchant_id", "created_at")
+
+category_schema = CategorySchema()
+categories_schema = CategorySchema(many=True)
+
+class Item(db.Model):
+    __tablename__ = 'items'
+
+    id = db.Column(db.String, primary_key=True, default=generate_uuid)
+    photo_url = db.Column(db.String, nullable=False)
+    name = db.Column(db.String)
+    description = db.Column(db.String(200))
+    price = db.Column(db.Float)
+    category_id = db.Column(db.String, db.ForeignKey('categories.id'))
+
+class ItemSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "photo_url", "name", "description", "price", "category_id", "created_at")
+
+item_schema = ItemSchema()
+items_schema = ItemSchema(many=True)

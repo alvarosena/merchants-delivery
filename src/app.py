@@ -5,6 +5,7 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from controllers.merchant_controller import merchants
 from controllers.address_controller import address
+from controllers.category_controller import categories
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -18,6 +19,7 @@ jwt = JWTManager(app)
 
 app.register_blueprint(merchants, url_prefix='/api/v1')
 app.register_blueprint(address, url_prefix='/api/v1')
+app.register_blueprint(categories, url_prefix='/api/v1')
 
 @app.route('/')
 def root():
