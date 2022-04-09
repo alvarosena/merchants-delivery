@@ -1,4 +1,4 @@
-from models import db, Merchant
+from models import db, Merchant, merchants_schema
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 
@@ -46,3 +46,8 @@ class MerchantService:
             }
 
             return result
+
+    def list_all_merchants(self):
+        merchants = Merchant.query.all()
+        
+        return merchants_schema.dump(merchants)

@@ -67,7 +67,7 @@ __Response 200__
     "created_at": "Sat, 09 Apr 2022 16:37:08 GMT"
 }
 ```
-___Response 404__
+__Response 404__
 ```json
 {
     "error": "Merchant not found."

@@ -1,8 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from sqlalchemy.sql import func
 import uuid
 
 db = SQLAlchemy()
+ma = Marshmallow()
 
 def generate_uuid():
     return str(uuid.uuid4())
@@ -18,6 +20,13 @@ class Merchant(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
     adresses = db.relationship('Address')
     openinghours = db.relationship('OpenHour')
+
+class MerchantSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "photo_url", "name", "email", "created_at")
+
+merchant_schema = MerchantSchema()
+merchants_schema = MerchantSchema(many=True)
 
 class Address(db.Model):
     __tablename__ = 'adresses'

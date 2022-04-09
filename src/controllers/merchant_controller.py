@@ -30,3 +30,11 @@ def authenticate_merchant():
     except Exception as err:
         return jsonify({'error': str(err)}), 401
 
+@merchants.route('/merchants', methods=['GET'])
+def list_all_merchants():
+    merchantService = MerchantService()
+
+    merchants = merchantService.list_all_merchants()
+
+    return jsonify(merchants), 200        
+
