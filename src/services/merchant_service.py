@@ -1,4 +1,4 @@
-from models import db, Merchant, merchants_schema
+from models import db, Merchant, merchants_schema, merchant_schema
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 
@@ -21,15 +21,7 @@ class MerchantService:
             db.session.add(merchant)
             db.session.commit()
 
-            result = {
-                'id': merchant.id,
-                'photo_url': merchant.photo_url,
-                'name': merchant.name,
-                'email': merchant.email,
-                'created_at': merchant.created_at
-            }
-
-            return result
+            return merchant_schema.dump(merchant)
 
     def authenticate_merchant(self, data):
         merchant = Merchant.query.filter_by(email=data['email']).first()

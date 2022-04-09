@@ -1,4 +1,4 @@
-from models import Merchant, db, Address
+from models import Merchant, db, Address, address_schema
 
 class AddressService:
     def create_address(self, data, current_merchant):
@@ -11,12 +11,4 @@ class AddressService:
             db.session.add(address)
             db.session.commit()
 
-            result = {
-                'id': address.id,
-                'street': address.street,
-                'state': address.state,
-                'created_at': address.created_at,
-                'merchant_id': address.merchant_id
-            }
-
-            return result
+            return address_schema.dump(address)

@@ -37,6 +37,13 @@ class Address(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
     merchant_id = db.Column(db.String, db.ForeignKey('merchants.id'))
 
+class AddressSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "photo_url", "name", "email", "created_at")
+
+address_schema = AddressSchema()
+adresses_schema = AddressSchema(many=True)
+
 class OpenHour(db.Model):
     __tablename__ = 'openinghours'
 
