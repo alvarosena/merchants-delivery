@@ -17,4 +17,4 @@ def create_address():
 
         return jsonify(address), 201
     except Exception as err:
-        return jsonify({'error': str(err)}), 401
+        return jsonify({'error': str(err)}), 404

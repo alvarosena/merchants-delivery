@@ -47,3 +47,29 @@ __Response 400__
     "error": "Merchant already exists",
 }
 ```
+
+### Address
+__POST CREATE ADDRESS__
+Protected endpoint
+```json
+{
+	"street": "Rua ciclano",
+	"state": "SP"
+}
+```
+__Response 200__
+```json
+{
+    "id": "76EEdc37-9787-437a-bjkad-4bads6d9633",
+	"street": "Rua fulano",
+	"state": "SP",
+	"merchant_id": "e453e298-a301-45b8-b154-4a48c92adb69",
+    "created_at": "Sat, 09 Apr 2022 16:37:08 GMT"
+}
+```
+___Response 404__
+```json
+{
+    "error": "Merchant not found."
+}
+```
