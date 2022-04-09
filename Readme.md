@@ -48,6 +48,17 @@ __Response 400__
 }
 ```
 
+__GET LIST ALL MERCHANTS__
+
+__Response 200__
+```json
+{  
+    [
+        
+    ]
+}
+```
+
 ### Address
 __POST CREATE ADDRESS__
 Protected endpoint
