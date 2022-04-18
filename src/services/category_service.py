@@ -1,4 +1,4 @@
-from models import db, Category, Merchant, category_schema
+from models import db, Category, Merchant, category_schema, categories_schema
 
 class CategoryService:
     def create_category(self, data, current_merchant):
@@ -15,3 +15,16 @@ class CategoryService:
             db.session.commit()
 
             return category_schema.dump(category)
+
+    def list_categories(self):
+        categories = Category.query.all()
+        return categories_schema.dump(categories)
+
+    def delete_category(self, category_id):
+        category = Category.query.filter_by(id=category_id).first()
+
+        if not category:
+            raise Exception("category does not exists.")
+        else:
+            db.session.delete(category)
+            db.session.commit()

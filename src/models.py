@@ -60,6 +60,7 @@ class Category(db.Model):
     name = db.Column(db.String)
     merchant_id = db.Column(db.String, db.ForeignKey('merchants.id'))
     items = db.relationship('Item')
+    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
 
 class CategorySchema(ma.Schema):
     class Meta:

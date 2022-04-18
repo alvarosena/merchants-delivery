@@ -17,3 +17,23 @@ def create_category():
         return jsonify(category), 201
     except Exception as err:
         return jsonify({'error': str(err)}), 400
+
+@categories.route('/categories')
+def list_categories():
+    try:
+        categoryService = CategoryService()
+
+        categories = categoryService.list_categories()
+        return jsonify(categories)
+    except Exception as err:
+        return jsonify({'error': str(err)}), 400
+
+@categories.route('/categories/<category_id>/delete', methods=["DELETE"])
+def delete_category(category_id):
+    try:
+        categoryService = CategoryService()
+
+        categoryService.delete_category(category_id)
+        return jsonify(), 204
+    except Exception as err:
+        return jsonify({'error': str(err)}), 404
